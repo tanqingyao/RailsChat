@@ -1,39 +1,77 @@
-<div class="container-fluid">
-  <header class="jumbotron hero-spacer">
-    <h1>Welcome to Web Chat!</h1>
-    <p>这是用Ruby on Rails开发的web在线聊天工具，在<a href="https://github.com/PENGZhaoqing/RailsChat">RailChat</a>基础上完成</p>
+<div class="splash-container">
+    <div class="splash">
+        <h1 class="splash-head">欢迎来到<br /> Web Chat!</h1>
+        <p class="splash-subhead">
+            这是一个在线聊天web应用测试版本.
+        </p>
+        <p>
+            <%= link_to "进入登陆页面", sessions_login_path, class: "pure-button pure-button-primary"  %>
+        </p>
+    </div>
+</div>
 
-    <h3>
-      目前功能
-    </h3>
-    <li>聊天室消息即时推送</li>
-    <li>支持查找，添加，删除好友</li>
-    <li>创建私人聊天，也支持多人聊天</li>
-    <li>房主可以拉人，踢人</li>
-    <li>房主能转移房屋权限</li>
-    ---------------------------------
-    <li>用户个人简介(待添加富文本编辑器)</li>
-    <li>UI界面修改（类似WeChat）</li>
-    <li>管理后台（目前只能删除用户）</li>
-    <li>现在添加好友需要对方同意</li>
-    <li>现在可以注册用户</li>
-    <h3>
-      未完成
-    </h3>
-    <li>现在的即时推送只限于聊天的消息，其他的推送比如未读信息提醒（包括声音）等还未涉及</li>
-    <li>聊天发送图片功能尚未完成</li>
+<div class="content-wrapper">
+    <div class="content">
+        <h2 class="content-head is-center">主要用到以下技术及工具.</h2>
 
+        <div class="pure-g">
+            <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
 
-    <h3>
-      用法
-    </h3>
-    <li>管理员账号为：admin@test.com，密码为：password</li>
-    <li>测试账号密码分别为: user1@test.com, password （邮箱后的数字1~10代表不同用户）</li>
-    <li>聊天机器人请添加Robot用户，与其聊天即可自动回复</li>
-    <li>请用两个浏览器分别登陆不同的用户来测试消息的即使推送，注意这两个用户需要互为好友</li>
+                <h3 class="content-subhead">
+                    <i class="fa fa-rocket"></i>
+                    Ruby on Rails
+                </h3>
+                <p>
+                    Ruby on Rails 是一个可以使你开发、部署、维护 web 应用程序变得简单的框架
+                </p>
+            </div>
+            <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
+                <h3 class="content-subhead">
+                    <i class="fa fa-mobile"></i>
+                    Bootstrap and Pure
+                </h3>
+                <p>
+                    网页的UI大部分使用Bootstrap框架和yahoo的Pure模板
+                </p>
+            </div>
+            <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
+                <h3 class="content-subhead">
+                    <i class="fa fa-th-large"></i>
+                    Github
+                </h3>
+                <p>
+                    开发和测试时的代码维护在Github
+                </p>
+            </div>
+            <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
+                <h3 class="content-subhead">
+                    <i class="fa fa-check-square-o"></i>
+                     Heroku
+                </h3>
+                <p>
+                    产品阶段部署在Heroku，这是一种PaaS，能够完全免费的在云中构建，运行和运行应用程序
+                </p>
+            </div>
+        </div>
+    </div>
 
-  </header>
+    <div class="ribbon l-box-lrg pure-g">
+        <div class="l-box-lrg is-center pure-u-1 pure-u-md-1-2 pure-u-lg-2-5">
+            <%= image_tag("file-icons.png", class: "pure-img-responsive") %>
+        </div>
+        <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-3-5">
 
-  <hr>
-  <hr>
+            <h2 class="content-head content-head-ribbon">相关链接.</h2>
+            <p>
+                这个web在线聊天工具，是在
+                RailChat基础上完成,<a href="https://github.com/PENGZhaoqing/RailsChat">点击进入</a>
+            </p>
+            <p>
+                部署的在线测试版本地址,<a href="https://desolate-shelf-85271.herokuapp.com">点击进入</a>
+            </p>
+            <p>
+                项目代码的Github地址,<a href="https://github.com/tanqingyao/RailsChat">点击进入</a>
+            </p>
+        </div>
+    </div>
 </div>

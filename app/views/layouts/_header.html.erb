@@ -1,4 +1,4 @@
-<nav class="navbar navbar-inverse navbar-fixed-top">
+<!--nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
 
     <div class="navbar-header">
@@ -42,7 +42,8 @@
           </li>
       <% else %>
           <%# 未登录用户显示项 %>
-          <li><%= link_to "Home",   root_path %></li>
+          <li><%= link_to "主页", root_path %></li>
+          <li><%= link_to "帮助", help_path %></li>
           <li><%= link_to "登陆", sessions_login_path %></li>
           <li><%= link_to "注册", signup_path %></li>
       <% end %>
@@ -50,7 +51,66 @@
     </ul>
   </div>
   </div>
-</nav>
+</nav-->
+<div class="header">
+    <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
+        <a class="pure-menu-heading" href="">WebChat</a>
+
+        <ul class="pure-menu-list">
+          <li class="pure-menu-item pure-menu-selected">
+              <%= link_to "主页", root_path, class: "pure-menu-link" %>
+          </li>
+          <% if current_user %>
+            <%# 管理员显示项 %>
+            <% if current_user.admin? %>
+              <li class="pure-menu-item">
+              <%= link_to users_path, class: "pure-menu-link" do %>
+                  管理所有用户
+              <% end %>
+              </li>
+            <% end %>
+            <%# 普通用户显示项 %>
+            <li class="pure-menu-item">
+              <%= link_to chats_path, class: "pure-menu-link" do %>
+                  聊天室<i class="fa fa-wechat"></i>
+              <% end %>
+            </li>
+            <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+                <a href="#" id="menuLink1" class="pure-menu-link">
+                    <%= current_user.name %><span class="glyphicon glyphicon-user"></span>
+                </a>
+                <ul class="pure-menu-children">
+                    <li class="pure-menu-item">
+                       
+                        <%= link_to current_user, class: "pure-menu-link" do %>
+                         <i class="fa fa-address-book" aria-hidden="true">个人资料</i>
+                        <% end %>
+                    </li>
+                    <li class="pure-menu-item">
+                        <%= link_to edit_user_path(current_user), class: "pure-menu-link" do %>
+                    修改信息
+                  <% end%>
+                    </li>
+                    <li class="pure-menu-item">
+                        <%= link_to sessions_logout_path, method: :delete do %>
+                      <span class="glyphicon glyphicon-off">&nbsp;退出</span>
+                  <% end %>
+                    </li>
+                </ul>
+            </li>
+          <% else %>
+              <%# 未登录用户显示项 %>
+              
+              <li class="pure-menu-item">
+                  <%= link_to "帮助", help_path, class: "pure-menu-link"  %>
+              </li>
+              <li class="pure-menu-item">
+                  <%= link_to "注册", signup_path, class: "pure-menu-link"  %>
+              </li>
+          <% end %>
+        </ul>
+    </div>
+</div>
 
 
 
