@@ -1,0 +1,35 @@
+<div id="layout" class="content pure-g">
+    <%= render "chat_menu" %>
+
+    <%= render "chat_list" %>
+    <div id="main" class="pure-u-1" style="margin-top: 0rem;width: 100%">
+        <div class="email-content">
+
+            <%= render "room_info" %>
+            
+            <div class="email-content-body" style="height: 10%;overflow: scroll;">
+                <ul class="list-unstyled media-block">
+
+                <%= sync partial: 'message_row', collection: Message.by_chat(@chat), refetch: true %>
+                <%= sync_new partial: 'message_row', resource: Message.new, scope: @chat, refetch: true %>
+
+              </ul>
+            </div>
+            <div class="email-content-footer" style="border-top: 1px solid #ddd;">
+                <%= simple_form_for @new_message, remote: true do |f| %>
+                <!--<%= f.input :img, label:false, as: :file %>-->
+                <div class="input-group">
+                    <%= f.input :body, label:false, placeholder: 'Type your message here...'%>
+                    <span class="input-group-btn">
+                    <%= f.button :submit, "发送", class: "btn btn-primary btn-sm " %>
+                    </span>
+                    <%= hidden_field_tag :chat_room, @chat.id %>
+                </div>
+                <% end %>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<%= render "search_fridends" %>

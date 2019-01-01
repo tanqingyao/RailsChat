@@ -1,0 +1,83 @@
+<div id="nav" class="pure-u" style="margin-top: 5rem;">
+    <a href="#" class="nav-menu-button">Menu</a>
+
+    <div class="nav-inner">
+        <button class="primary-button pure-button" data-toggle="modal" data-target="#myModal">添加好友</button>
+
+        <div class="pure-menu">
+            <span class="pure-menu-heading">已发送请求</span>
+            <ul class="pure-menu-list">
+                <% @friends_want.each do |user| %>
+                    <li class="pure-menu-item text-center" >
+                        <%#= image_tag "user-icon.png", class: "img-sm" %>
+                        <%= image_tag user.avatar.url(:thumb) %>
+                        <div class="text-muted text-center">
+                            <%= user.name %>
+                        </div>
+                        <%= link_to prefriendship_path(user), method: :delete, class: 'btn btn-danger', role: "button", style: "border-radius: 2rem;margin:0px;" do %>
+                            <i class="fa fa-angle-right"></i> 撤销
+                        <% end %>
+
+                    </li>
+                <% end %>
+            </ul>
+            <span class="pure-menu-heading">新的朋友</span>
+            <ul class="pure-menu-list">
+                <% @friends_wanted.each do |user| %>
+                    <li class="pure-menu-item text-center" >
+
+                        <%#= image_tag "user-icon.png", class: "img-sm" %>
+                        <%= image_tag user.avatar.url(:thumb) %>
+                        <div class="text-muted text-center">
+                            <%= user.name %>
+                        </div>
+                            <!---通过修改friendships_path为friendships_url已经成功能够路由到create action了，根据错误提示进行的修改-->
+                            <div class="row">
+                        <%= link_to friendships_url(user.id), method: :post, class: 'btn btn-success', role: "button", style: "border-radius: 2rem;margin:0px;" do %>
+                            <i class="fa fa-angle-right"></i> 同意
+                        <% end %>
+                        <%= link_to prefriendship_path(user), method: :delete, class: 'btn btn-danger', role: "button", style: "border-radius: 2rem;margin:0px;" do %>
+                            <i class="fa fa-angle-right"></i> 拒绝
+                        <% end %>
+                        </div>
+                    </li>
+                <% end %>
+            </ul>
+            <span class="pure-menu-heading">通讯录</span>
+            <ul class="pure-menu-list">
+                <% @friends.each do |user| %>
+                    <li class="pure-menu-item" style="padding: 0px; margin-bottom: 0px;">
+
+                        <div class="pure-menu-link text-center" data-toggle="collapse" data-target="#user-<%= user.id %>">
+                            <%= image_tag user.avatar.url(:thumb) %>
+                            <div class="text-muted">
+                                <%= user.name %>
+                            </div>
+                        </div>
+
+                        <div id="user-<%= user.id %>" class="collapse">
+                            
+                            <%= form_for Chat.new, url: chats_path, method: :post do |f| %>
+                                <%= hidden_field_tag :users, [user.id] %>
+                                <%= button_tag(:class => "btn btn-link pure-menu-link") do %>
+                                    <span class="email-label-travel"></span>聊天
+                                <% end %>
+                                <div class="pure-menu-item">
+                                    <%= link_to user_path(user), class: 'pure-menu-link', role: "button" do %>
+                                        <span class="email-label-work"></span>资料
+                                    <% end %>
+                                <div>
+                                <div class="pure-menu-item">
+                                    <%= link_to friendship_path(user), method: :delete, class: 'pure-menu-link', role: "button" do %>
+                                        <span class="email-label-personal"></span>删除
+                                    <% end %>
+                                </div>
+                            <% end %>
+
+                        </div>
+                    </li>
+                <% end %>
+            </ul>
+        </div>
+    </div>
+</div>

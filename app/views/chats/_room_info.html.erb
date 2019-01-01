@@ -1,0 +1,97 @@
+<div class="email-content-header pure-g">
+    <div class="pure-u-1-2">
+        <h1 class="email-content-title">
+            <i class="fa fa-comments-o fa-fw"></i> <%= @chat.name %>
+        </h1>
+        <p class="email-content-subtitle">
+            <% if current_user.id==@chat.admin_id %>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        管理房间
+                    </button>
+
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                        <div class="row">
+                            <button data-toggle="collapse" data-target="#add-user" class="dropdown-item btn btn-info btn-block" style="margin-bottom: 5px;" type="button">添加用户</button>
+                            <div id="add-user" class="collapse">
+                                <div class="well">
+                                <%= form_for @chat, url: add_user_chat_path(@chat), method: :post, role: 'form' do |f| %>
+                                    <label for="users">选择加入聊天的用户：</label>
+                                    <%= select_tag :users, options_for_select(@friends_out_chat.map { |user| [user.name, user.id] }), class: "js-example-basic-multiple", multiple: "multiple", multiple: true, style: "width: 100%" %>
+                                    <%= f.submit '确定', class: 'btn btn-success btn-block', style: 'margin-top:10px;margin-bottom:10px ' %>
+                                <% end %>
+                                <button data-toggle="collapse" data-target="#add-user" class="btn btn-default btn-block"> 取消</button>
+                                </div>
+                            </div>
+
+                            <button data-toggle="collapse" data-target="#edit-room" class="dropdown-item btn btn-primary btn-block" style="margin-bottom: 5px;" type="button">修改房间名</button>
+                            <div id="edit-room" class="collapse">
+                                <div class="well">
+                                <%= form_for @chat, url: chat_path(@chat), method: :patch, role: "form" do |f| %>
+                                    <div class="form-group">
+                                        <label for="name">编辑房间名:</label>
+                                        <%= f.text_field :name, class: "form-control" %>
+                                    </div>
+                                    <%= f.submit '确定', class: 'btn btn-success btn-block', style: 'margin-top:10px;margin-bottom:10px ' %>
+                                <% end %>
+                                <button data-toggle="collapse" data-target="#edit-room" class="btn btn-default btn-block"> 取消</button>
+                                </div>
+                            </div>
+
+                            <button data-toggle="collapse" data-target="#trans-auth" class="dropdown-item btn btn-danger btn-block" type="button">转移权限</button>
+                            <div id="trans-auth" class="collapse">
+                                <div class="well">
+                                <%= form_for @chat, url: trans_auth_chat_path(@chat), method: :patch, role: 'form' do |f| %>
+                                    <label for="users">移交此房间管理权限给：</label>
+                                    <%= select_tag :admin_id, options_for_select(@users_in_chat.map { |user| [user.name, user.id] }), class: "js-example-basic-multiple", style: "width: 100%" %>
+                                    <%= f.submit '确定', class: 'btn btn-success btn-block', style: 'margin-top:10px;margin-bottom:10px ' %>
+                                <% end %>
+                                <button data-toggle="collapse" data-target="#trans-auth" class="btn btn-default btn-block"> 取消</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <span>管理用户：</span>
+                
+                <% @chat.users.each do |user| %>
+                    <span class="label label-warning" style=" display: inline-block;"><%= user.name %>
+                    <% if current_user.id==@chat.admin_id %>
+                        <%= link_to delete_user_chat_path(user_id: user.id, id: @chat.id), method: :delete, style: 'color:red;' do %>
+                            <i class="fa fa-times"></i>
+                        <% end %>
+                    <% end %>
+                    </span>
+                <% end %>
+            
+            <% end %>
+        </p>
+    </div>
+
+    <div class="email-content-controls pure-u-1-2">
+        <% if current_user.id==@chat.admin_id %>
+            <div class="row">
+            <%= link_to destroyall_messages_path(chat_room: @chat.id), method: :delete do %>                      
+                <button class="secondary-button pure-button">
+                    <i class="fa fa-trash fa-fw"></i>清空历史记录
+                </button>
+            <% end %>
+        
+            <%= link_to chat_path(@chat), method: :delete do %>
+                <button class="secondary-button pure-button">
+                    <i class="fa fa-times fa-fw"></i> 删除聊天
+                </button>
+            <% end %>
+            </div>
+        <% else %>
+        
+            <%= link_to delete_user_chat_path(user_id: current_user.id, id: @chat.id), method: :delete do %>
+                <button class="secondary-button pure-button">
+                    <i class="fa fa-times"></i> 退出聊天
+                </button>
+            <% end %>
+        
+        <% end %>
+    </div>
+</div>

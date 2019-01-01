@@ -1,8 +1,21 @@
-<li>
-    <%= image_tag user.avatar.url(:thumb) %>
-    <%= link_to user.name, user %>
-    <% if current_user.admin? && !current_user?(user) %>
-      | <%= link_to "delete", user, method: :delete,
-                                    data: { confirm: "You sure?" } %>
-    <% end %>
-</li>
+<div class="row">
+<div class="col-sm-3">
+    <div class="well">
+    <p><%=  user.name %></p>
+    <%= image_tag user.avatar.url(:thumb), class: "img-circle" %>
+    <%# <img src="bird.jpg" class="img-circle" height="55" width="55" alt="Avatar"> %>
+    </div>
+</div>
+<div class="col-sm-9">
+    <div class="well">
+    <p>
+        <%= link_to "查看用户资料", user %>
+    </p>
+    <p>
+        <% if current_user.admin? && !current_user?(user) %> 
+        <%= link_to "删除该用户", user, method: :delete, data: { confirm: "You sure?" } %>
+        <% end %>
+    </p>
+    </div>
+</div>
+</div>

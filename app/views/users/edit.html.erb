@@ -1,21 +1,25 @@
-<div class="row">
-  <div class="col-md-6 col-md-offset-3">
-    <h1>Update your profile</h1>
-    <!--<div class="gravatar_edit">
-      <%= gravatar_for @user %>
-      <a href="http://gravatar.com/emails" target="_blank">change</a>
-    </div>-->
-    <%= simple_form_for(@user) do |f| %>
-      <%= render 'shared/error_messages' %>
-      <!--修改用户头像-->
-      <%= f.input :avatar, as: :file %>
-      <%= f.input :name %>
-      <%= f.input :email %>
-      <%= f.input :phonenumber%>
-      <%= f.input :password, hint: false, error_html: { id: 'password_error'} %>
-      <%= f.input :password_confirmation %>
-      <%= f.button :submit, 'Save changes', class: "btn-primary" %>
-    <% end %>
+<div class="content">
+  <h2 class="content-head is-center">修改个人信息.</h2>
 
+  <div class="pure-g">
+      <div class="l-box-lrg pure-u-1 pure-u-md-1-5"></div>
+
+      <div class="l-box-lrg pure-u-1 pure-u-md-3-5">
+          <%= simple_form_for(@user) do |f| %>
+          <fieldset>
+            <%= render 'shared/error_messages' %>
+            <!--修改用户头像-->
+            <%= f.input :avatar, label: '头像', as: :file %>
+            <%= f.input :name, label: '姓名' %>
+            <%= f.input :email, label: '邮箱' %>
+            <%= f.input :phonenumber, label: '电话'%>
+            <%= f.input :password, label: '密码', hint: false, error_html: { id: 'password_error'} %>
+            <%#= f.input :password_confirmation %>
+            <%= f.button :submit, '保存修改', class: "btn-primary" %>
+          </fieldset>
+          <% end %>
+      </div>
+     <div class="l-box-lrg pure-u-1 pure-u-md-1-5"></div>
   </div>
+
 </div>
